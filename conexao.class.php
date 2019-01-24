@@ -12,7 +12,7 @@ class Conexao{
 		$this->servidor = "localhost";
 		$this->banco = "crudpdo";
 		$this->usuario = "root"; 
-		$this->senha = "";
+		$this->senha = "root";
 	}
 	//METODO PARA CONECTAR
 	public function conectar(){

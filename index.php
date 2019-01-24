@@ -18,7 +18,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="utf-8">
-    <title>Formulário de cadaaaastro</title>
+    <title>Formulário de cadastro</title>
     <link href="estilo.css" rel="stylesheet" type="text/css" >
 </head>
 <body>

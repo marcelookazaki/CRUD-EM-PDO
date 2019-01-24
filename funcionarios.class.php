@@ -54,50 +54,55 @@ class Funcionario
 		}
 	}
 	//Inserir no banco
-	public function queryInsert($dados){
-		try {
-			//tratarCaracter para ser inseridos no banco com caracteres especiais 
-				$this->nome = $this->objFc->tratarCaracter($dados['nome'],1);
- 				$this->email = $dados['email'];	//sha1 deixar a senha mais segura
-				$this->senha = sha1($dados['senha']);//usando o 2 que vem o switch para usar a a data e hrs p/ cadastrar
-				$this->dataCadastro = $this->objFc->dataAtual(2);
-			$cst = $this->con->conectar()->prepare("INSERT INTO funcionario (nome, email, senha, data_cadastro) VALUES (:nome,:email,:senha,:dt);");
-			//bindParam passando os parametros em PDO, PARAM_SRT=so vai inserir info de texto
-			$cst->bindParam(":nome",$this->nome, PDO::PARAM_STR);
-			$cst->bindParam(":email",$this->email, PDO::PARAM_STR);
-			$cst->bindParam(":senha",$this->senha, PDO::PARAM_STR);
-			$cst->bindParam(":dt",$this->dataCadastro, PDO::PARAM_STR);
-			if ($cst->execute()){
-				return 'ok';
-			}else{
-				return 'erro';
-			}
+	// public function queryInsert($dados)
+	// {
+	// 	try {
 
-		} catch (PDOException $ex) {	
-			return 'erro'.$ex->getMessage();
-		}
-	}
+	// 		$conexao = $this->con->conectar();
 
-	 // public function queryInsert($dados){
-  //       try{
-  //           $this->nome = $this->objFc->tratarCaracter($dados['nome'], 1);
-  //           $this->email = $dados['email'];
-  //           $this->senha = sha1($dados['senha']);
-  //           $this->dataCadastro = $this->objFc->dataAtual(2);
-  //           $cst = $this->con->conectar()->prepare("INSERT INTO funcionario (nome, email, senha, data_cadastro) VALUES (:nome, :email, :senha, :dt);");
-  //           $cst->bindParam(":nome", $this->nome, PDO::PARAM_STR);
-  //           $cst->bindParam(":email", $this->email, PDO::PARAM_STR);
-  //           $cst->bindParam(":senha", $this->senha, PDO::PARAM_STR);
-  //           $cst->bindParam(":dt", $this->dataCadastro, PDO::PARAM_STR);
-  //           if($cst->execute()){
-  //               return 'ok';
-  //           }else{
-  //               return 'erro';
-  //           }
-  //       } catch (PDOException $e) {
-  //           return 'error '.$e->getMessage();
-  //       }
-  //   }
+	// 		$query = "INSERT INTO Funcionario 
+	// 			(nome, email, senha, data_cadastro) 
+	// 			VALUES 
+	// 			(:nome,:email,:senha,:dt)";
+
+	// 		// PREPARANDO A QUERY
+	// 		$cst = $conexao->prepare($query);
+
+	// 		// TRATAMENTO DE PARAMETROS com bindParam passando os parametros em PDO, 
+	// 		// PARAM_SRT=so vai inserir info de texto
+	// 		$cst->bindParam(":nome",$this->objFc->tratarCaracter($this->nome,1), PDO::PARAM_STR);
+	// 		$cst->bindParam(":email",$this->email, PDO::PARAM_STR);
+	// 		$cst->bindParam(":senha",$this->senha, PDO::PARAM_STR);
+	// 		$cst->bindParam(":dt",$this->objFc->dataAtual($this->dataCadastro,2), PDO::PARAM_STR);
+						
+	// 		return ($cst->execute()) ? 'ok' : 'erro';
+
+	// 	} catch (PDOException $e) {	
+	// 		return 'erro'.$e->getMessage();
+	// 	}
+	// 	//fecahndo a conexão com o banco
+	// 		$conexao = null;
+
+	// }
+
+	 public function queryInsert($dados){
+        try{
+            $this->nome = $this->objFc->tratarCaracter($dados['nome'], 1);
+            $this->email = $dados['email'];
+            $this->senha = sha1($dados['senha']);
+            $this->dataCadastro = $this->objFc->dataAtual(2);
+            $cst = $this->con->conectar()->prepare("INSERT INTO Funcionario (nome, email, senha, data_cadastro) VALUES (:nome, :email, :senha, :dt);");
+            $cst->bindParam(":nome", $this->nome, PDO::PARAM_STR);
+            $cst->bindParam(":email", $this->email, PDO::PARAM_STR);
+            $cst->bindParam(":senha", $this->senha, PDO::PARAM_STR);
+            $cst->bindParam(":dt", $this->dataCadastro, PDO::PARAM_STR);
+
+            return ($cst->execute()) ? 'ok' : 'erro';
+            
+        } catch (PDOException $e) {
+            return 'error '.$e->getMessage();
+        }
+    }
 
 	//Atualização no banco
 	public function queryUpdate($dados){
