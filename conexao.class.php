@@ -1,31 +1,29 @@
 <?php
-
-class conexao{
-	private $servidor;
+//CRIANDO A CLASSE DE CONEXAO
+class Conexao{
+	//ATRIBUTO PRIVADOS
 	private $usuario;
 	private $senha;
 	private $banco;
+	private $servidor;
 	private static $pdo;
-
-	public function __construct(){
-		$this->servidor = "127.0.0.1";
-		$this->usuario = "root";
-		$this->senha = "root"
-		$this->banco = "cadastroloja";
+	//CONSTRUTOR
+	public function __construct(){		
+		$this->servidor = "localhost";
+		$this->banco = "crudpdo";
+		$this->usuario = "root"; 
+		$this->senha = "";
 	}
-
+	//METODO PARA CONECTAR
 	public function conectar(){
-		try {
-			if (is_null(self::$pdo)) {
-				self::$pdo = new PDO("mysql:host". $this->servidor . ":bdname". $this->banco . $this->usuario . $this->senha);
+		try{
+			if(is_null(self::$pdo)){
+				self::$pdo = new PDO("mysql:host=".$this->servidor.";dbname=".$this->banco, $this->usuario, $this->senha);
 			}
 			return self::$pdo;
-			
-		} catch (PDOException $e) {
-			$e->show
-			
+		}catch(PDOException $e){
+			echo 'Error: '.$e->getMessage();
 		}
 	}
 }
-
 ?>
