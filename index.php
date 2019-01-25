@@ -2,17 +2,9 @@
 
     require_once 'funcoes.class.php';
     require_once 'funcionarios.class.php';
-
-    $objFc = new Funcoes();
-    $objFn = new Funcionario();
-
-    if (isset($_POST['btnCadastrar'])) {
-        if ($objFn->queryInsert($_POST) == 'ok') {
-            header("location:index.php");
-        }else{
-           echo '<script type="text/javascript">alert("erro ao entrar")</script>';
-        }
-    }
+    require_once 'insertCadastro.class.php';
+    require_once 'listar.class.php';   
+   
 ?>
 <!DOCTYPE>
 <html lang="pt-br">
@@ -23,13 +15,15 @@
 </head>
 <body>
 
-<div id="lista">
+<!-- <div id="lista">
+
     <div class="funcionario">
         <div class="nome"></div>
         <div class="editar"><a href="#" title="Editar dados">EDITAR</a></div>
         <div class="excluir"><a href="#" title="Excluir esse dado">EXCLUIR</a></div>
     </div>
-</div>
+
+</div> -->
 
 <div id="formulario">
     <form name="formCad" action="" method="POST">

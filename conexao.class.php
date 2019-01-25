@@ -13,6 +13,14 @@ class Conexao{
 		$this->banco = "crudpdo";
 		$this->usuario = "root"; 
 		$this->senha = "root";
+
+		// $f = new Funcionario();
+
+		// $f->nome = "";
+		
+		// $f->setNome("");
+		// $f->getNome();
+
 	}
 	//METODO PARA CONECTAR
 	public function conectar(){
