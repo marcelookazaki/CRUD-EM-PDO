@@ -3,7 +3,9 @@
     require_once 'funcoes.class.php';
     require_once 'funcionarios.class.php';
     require_once 'insertCadastro.class.php';
-    require_once 'listar.class.php';   
+    
+    $objFc = new Funcoes();
+    $objFn = new Funcionario();
    
 ?>
 <!DOCTYPE>
@@ -15,16 +17,17 @@
 </head>
 <body>
 
-<!-- <div id="lista">
+<div id="lista">
 
+    <?php foreach($objFn->querySelect() as $rst){ ?>
     <div class="funcionario">
-        <div class="nome"></div>
-        <div class="editar"><a href="#" title="Editar dados">EDITAR</a></div>
-        <div class="excluir"><a href="#" title="Excluir esse dado">EXCLUIR</a></div>
+        <div class="nome"><?=$objFc->tratarCaracter($rst['nome'], 2)?></div>
+        <div class="editar"><a href="?acao=edit&func=<?=($rst['idFuncionario'])?>">editar</a></div>
+        <div class="excluir"><a href="?acao=delet&func=<?=($rst['idFuncionario'])?>">excluir</a></div>
     </div>
+    <?php } ?>
 
-</div> -->
-
+</div>
 <div id="formulario">
     <form name="formCad" action="" method="POST">
         <label>Nome: </label><br>

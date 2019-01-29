@@ -32,7 +32,7 @@ class Funcionario
 	public function querySeleciona($dados){
 		try {
 			$this->idFuncionario =$this->objFc->base64($dados,2);
-			$cst = $this->con->conectar()->prepare("SELECT 'idFuncionario', 'nome', 'email' FROM Funcionario WHERE 'idFuncionario' = :objFc");
+			$cst = $this->con->conectar()->prepare("SELECT idFuncionario, nome, email FROM Funcionario WHERE idFuncionario = :objFc");
 			//usando parametro para jogar dentro da query
 			$cst->bindParam(":objFc",$this->idsuarios,PDO::PARAM_INT);
 			//excutar a query
@@ -58,16 +58,6 @@ class Funcionario
 	public function queryInsert($dados)
 	{
 		try {
-			
-			// $conexao = $this->con->conectar();
-
-			// $query = "INSERT INTO Funcionario 
-			// 	(nome, email, senha, data_cadastro) 
-			// 	VALUES 
-			// 	(:nome,:email,:senha,:dt)";
-
-			// // PREPARANDO A QUERY
-			// $cst = $conexao->prepare($query);
 
 			//abrindo a conexão , preparando e fazendo o insert juntos
 			$cst = $this->con->conectar()->prepare("INSERT INTO Funcionario (nome, email, senha, data_cadastro) VALUES (:nome, :email, :senha, :dt);");
@@ -84,31 +74,10 @@ class Funcionario
 		} catch (PDOException $e) {	
 			return 'erro'.$e->getMessage();
 		}
-		//fecahndo a conexão com o banco
+		//fechando a conexão com o banco
 			$conexao = null;
 
 	}
-
-	 // public function queryInsert($dados){
-  //       try{
-  //           $this->nome = $this->objFc->tratarCaracter($dados['nome'], 1);
-  //           $this->email = $dados['email'];
-  //           $this->senha = sha1($dados['senha']);
-  //           $this->dataCadastro = $this->objFc->dataAtual(2);
-
-  //           $cst = $this->con->conectar()->prepare("INSERT INTO Funcionario (nome, email, senha, data_cadastro) VALUES (:nome, :email, :senha, :dt);");
-
-  //           $cst->bindParam(":nome", $this->nome, PDO::PARAM_STR);
-  //           $cst->bindParam(":email", $this->email, PDO::PARAM_STR);
-  //           $cst->bindParam(":senha", $this->senha, PDO::PARAM_STR);
-  //           $cst->bindParam(":dt", $this->dataCadastro, PDO::PARAM_STR);
-
-  //           return ($cst->execute()) ? 'ok' : 'erro';
-            
-  //       } catch (PDOException $e) {
-  //           return 'error '.$e->getMessage();
-  //       }
-  //   }
 
 	//Atualização no banco
 	public function queryUpdate($dados){
@@ -117,7 +86,7 @@ class Funcionario
 				$this->idFuncionario = $this->objFc->base64($dados['func'],2);
 				$this->nome = $this->objFc->tratarCaracter($dados['nome'],1);
 				$this->email = $dados['email'];
-			$cst = $this->con->conectar()->prepare("UPDATE 'funcionario' SET 'nome' = :nome,'email' = :email  WHERE 'idFuncionario' = :objFc;");
+			$cst = $this->con->conectar()->prepare("UPDATE Funcionario SET nome = :nome,email = :email  WHERE idFuncionario = :objFc;");
 			$cst->bindParam(":objFc",$this->idFuncionario,PDO::PARAM_INT);
 			$cst->bindParam(":nome",$this->nome,PDO::PARAM_STR);
 			$cst->bindParam(":email",$this->email,PDO::PARAM_STR);
@@ -134,7 +103,7 @@ class Funcionario
 	public function queryDelete($dados){
 		try {
 			$this->idFuncionario = $this->objFunc->base64($dados,2);
-				$cst = $this->con->conectar()->prepare("SELECT FROM 'Funcionario' = objFc");
+				$cst = $this->con->conectar()->prepare("SELECT FROM Funcionario = objFc");
 				$cst->bindParam(":objFc", $this->idFuncionario, PDO::PARAM_INT);
 				if ($cst->execute){
 							return 'ok';
